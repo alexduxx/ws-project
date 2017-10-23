@@ -19,7 +19,7 @@ $GLOBALS['config'] = array(
 );
 
 
-// instead of writing 10 lines of coad to require all the files necessary 
+// instead of writing 10 lines of coad to require all the files necessary
 
 spl_autoload_register(function($class){
     require_once 'classes/' . $class . '.php';
