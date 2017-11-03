@@ -2,49 +2,57 @@
 
 require_once 'core/init.php';
 
+
+
 if (Input::exists()) {
   // echo Input::get('username');
+  if (Token::check(Input::get('token'))) {
 
-  $validate = new Validate();
-  $validation = $validate->check($_POST, array(
-    'username' => array(
-      'required' => true,
-      'min' => 2,
-      'max' => 20,
-      'unique' => 'users'
-    ),
-    'password' => array(
-      'required' => true,
-      'min' => 8
-    ),
-    'password_again' => array(
-      'required' => true,
-      'matches' => 'password'
-    ),
-    'firstname' => array(
-      'required' => true,
-      'min' => 2,
-      'max' => 50
-    ),
-    'lastname' => array(
-      'required' => true,
-      'min' => 2,
-      'max' => 50
-    )
-  ));
+    echo 'Ive been run ';
 
-  if ($validation->passed()) {
-    //register user
-    echo "passed";
-  }else{
+    $validate = new Validate();
+    $validation = $validate->check($_POST, array(
+      'username' => array(
+        'required' => true,
+        'min' => 2,
+        'max' => 20,
+        'unique' => 'users'
+      ),
+      'password' => array(
+        'required' => true,
+        'min' => 8
+      ),
+      'password_again' => array(
+        'required' => true,
+        'matches' => 'password'
+      ),
+      'firstname' => array(
+        'required' => true,
+        'min' => 2,
+        'max' => 50
+      ),
+      'lastname' => array(
+        'required' => true,
+        'min' => 2,
+        'max' => 50
+      )
+    ));
 
-    //output errors
-    // print_r($validation->errors() );
-    foreach ($validation->errors() as $error) {
-      echo $error, '<br>';
+    if ($validation->passed()) {
+      //register user
+      // echo "passed";
+      Session::flash('success', 'You registered successfully!');
+      header('Location: index.php');
+
+    }else{
+
+      //output errors
+      // print_r($validation->errors() );
+      foreach ($validation->errors() as $error) {
+        echo $error, '<br>';
+      }
     }
   }
-
 }
 
  ?>
@@ -80,5 +88,6 @@ if (Input::exists()) {
 
   </div>
 
+  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
   <input type="submit" value="register">
 </form>

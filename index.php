@@ -14,10 +14,14 @@ require_once 'core/init.php';
 //
 // }
 
-$user = DB::getInstance()->update('users', 3, array(
+// $user = DB::getInstance()->update('users', 3, array(
+//
+//   'password' => 'NewtestPass',
+//   'firstname' => 'tralalala'
+//
+//
+// ));
 
-  'password' => 'NewtestPass',
-  'firstname' => 'tralalala'
-
-
-));
+if (Session::exists('success')) {
+  echo Session::flash('success');
+};
