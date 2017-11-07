@@ -4,7 +4,7 @@ class Input
 {
     public static function exists($type = 'post')
     {
-          switch ($type) {
+        switch ($type) {
         case 'post':
           return (!empty($_POST)) ? true : false;
         case 'get':
@@ -16,14 +16,13 @@ class Input
       }
     }
 
-    public static function get($item){
-      if (isset($_POST[$item])) {
-
-        return $_POST[$item];
-      }elseif (isset($_GET)) {
-
-        return $_GET[$item];
-      }
-      return '';
+    public static function get($item)
+    {
+        if (isset($_POST[$item])) {
+            return $_POST[$item];
+        } elseif (isset($_GET)) {
+            return $_GET[$item];
+        }
+        return '';
     }
 }

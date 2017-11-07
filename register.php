@@ -2,16 +2,15 @@
 
 require_once 'core/init.php';
 
-
+// var_dump(Token::check(Input::get('token')));
 
 if (Input::exists()) {
-  // echo Input::get('username');
-  if (Token::check(Input::get('token'))) {
+    // echo Input::get('username');
+    if (Token::check(Input::get('token'))) {
+        echo 'Ive been run <br> ';
 
-    echo 'Ive been run ';
-
-    $validate = new Validate();
-    $validation = $validate->check($_POST, array(
+        $validate = new Validate();
+        $validation = $validate->check($_POST, array(
       'username' => array(
         'required' => true,
         'min' => 2,
@@ -38,28 +37,52 @@ if (Input::exists()) {
       )
     ));
 
-    if ($validation->passed()) {
-      //register user
-      // echo "passed";
-      Session::flash('success', 'You registered successfully!');
-      header('Location: index.php');
+        if ($validation->passed()) {
+            //register user
+            // echo "passed";
+            // Session::flash('success', 'You registered successfully!');
+            // header('Location: index.php');
 
-    }else{
+
+            $user = new User();
+
+            echo $salt = Hash::salt(32);
+            // die();
+
+
+            try {
+
+                $user->create(array(
+                        'username'  => Input::get('username'),
+                        'password'  => Hash::make(Input::get('password'), $salt),
+                        'salt'      => $salt,
+                        'firstname' => Input::get('firstname'),
+                        'lastname'  => Input::get('lastname'),
+                        'joined'    => date('Y-m-d H:i:s'),
+                        'rights'    => 1
+                      ));
+
+                Session::flash('home', 'You have been registered and can now log in!');
+                header('Location: index.php');
+            } catch (Exception $e) {
+                die($e->getMessage());
+            }
+        } else {
 
       //output errors
-      // print_r($validation->errors() );
-      foreach ($validation->errors() as $error) {
-        echo $error, '<br>';
-      }
+            // print_r($validation->errors() );
+            foreach ($validation->errors() as $error) {
+                echo $error, '<br>';
+            }
+        }
     }
-  }
 }
 
  ?>
 
 
 
-<form class="" action="" method="post">
+<form  action="" method="post">
   <div class="field">
     <label for="username">Username</label>
     <input type="text" name="username" value="<?php echo escape(Input::get('username')); ?>" autocomplete="off" id="username">

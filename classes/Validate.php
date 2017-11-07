@@ -1,6 +1,7 @@
 <?php
 
-class Validate {
+class Validate
+{
     private $_passed = false;
     private $_errors = array();
     private $_db = null;
@@ -23,27 +24,27 @@ class Validate {
 
                 if ($rule === 'required' && empty($value)) { // check the rules for the inputs
                     $this->addError("{$item} is required");
-                } else if(!empty($value)) {
-                  switch($rule) {
+                } elseif (!empty($value)) {
+                    switch ($rule) {
                     case 'min':
                       if (strlen($value) < $rule_value) {
-                        $this->addError("{$item} must be a minimum of {$rule_value} characters");
+                          $this->addError("{$item} must be a minimum of {$rule_value} characters");
                       }
                     break;
                     case 'max':
                       if (strlen($value) > $rule_value) {
-                        $this->addError("{$item} must be a maximum of {$rule_value} characters");
+                          $this->addError("{$item} must be a maximum of {$rule_value} characters");
                       }
                     break;
                     case 'matches':
                       if ($value != $source[$rule_value]) {
-                        $this->addError("{$rule_value} must match {$item} ");
+                          $this->addError("{$rule_value} must match {$item} ");
                       }
                     break;
                     case 'unique':
                       $check = $this->_db->get($rule_value, array($item, '=', $value));
                       if ($check->count()) {
-                        $this->addError("{$item} already exists");
+                          $this->addError("{$item} already exists");
                       }
 
                     break;
@@ -73,5 +74,3 @@ class Validate {
         return $this->_passed;
     }
 }
-
-?>
