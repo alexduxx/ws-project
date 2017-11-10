@@ -7,7 +7,7 @@ require_once 'core/init.php';
 if (Input::exists()) {
     // echo Input::get('username');
     if (Token::check(Input::get('token'))) {
-        echo 'Ive been run <br> ';
+        // echo 'Ive been run <br> ';
 
         $validate = new Validate();
         $validation = $validate->check($_POST, array(
@@ -46,7 +46,7 @@ if (Input::exists()) {
 
             $user = new User();
 
-            echo $salt = Hash::salt(32);
+            // $salt = Hash::salt(32);
             // die();
 
 
@@ -54,8 +54,7 @@ if (Input::exists()) {
 
                 $user->create(array(
                         'username'  => Input::get('username'),
-                        'password'  => Hash::make(Input::get('password'), $salt),
-                        'salt'      => $salt,
+                        'password'  => Hash::make(Input::get('password')),
                         'firstname' => Input::get('firstname'),
                         'lastname'  => Input::get('lastname'),
                         'joined'    => date('Y-m-d H:i:s'),
@@ -63,7 +62,7 @@ if (Input::exists()) {
                       ));
 
                 Session::flash('home', 'You have been registered and can now log in!');
-                header('Location: index.php');
+                Redirect::to(404);
             } catch (Exception $e) {
                 die($e->getMessage());
             }
