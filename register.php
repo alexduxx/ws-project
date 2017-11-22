@@ -51,7 +51,6 @@ if (Input::exists()) {
 
 
             try {
-
                 $user->create(array(
                         'username'  => Input::get('username'),
                         'password'  => Hash::make(Input::get('password')),
@@ -62,7 +61,8 @@ if (Input::exists()) {
                       ));
 
                 Session::flash('home', 'You have been registered and can now log in!');
-                Redirect::to(404);
+                // Redirect::to(404);
+                Redirect::to('index.php');
             } catch (Exception $e) {
                 die($e->getMessage());
             }

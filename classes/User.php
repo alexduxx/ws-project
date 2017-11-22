@@ -29,6 +29,18 @@
           }
       }
 
+      public function update($fields = array(), $id = null){
+
+        if (!$id && $this->isLoggedIn()) {
+          $id = $this->data()->id;
+        }
+
+        if (!$this->_db->update('users', $id, $fields)) {
+          throw new Exception('There was a problem updating');
+        }
+      }
+
+
       public function create($fields = array())
       {
           if (!$this->_db->insert('users', $fields)) {
@@ -102,6 +114,8 @@
 
           Session::delete($this->_sessionName);
           Cookie::delete($this->_cookieName);
+
+
       }
 
       public function data()
