@@ -6,7 +6,7 @@ $GLOBALS['config'] = array(
     'mysql' => array(
         'host'     => '127.0.0.1',
         'username' => 'root',
-        'password' => 'root',
+        'password' => '',
         'db'       => 'ws-project'
     ),
     'remember'=> array(
@@ -35,7 +35,7 @@ if (Cookie::exists(Config::get('remember/cookie_name')) && !Session::exists(Conf
 
   if ($hashCheck->count()) {
     $user = new User($hashCheck->first()->user_id); // get the users id
-    $user->login(); 
+    $user->login();
   }
 
 }

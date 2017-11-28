@@ -33,7 +33,7 @@ if(Input::exists()) {
             'lastname'  => Input::get('lastname')
           ));
 
-          Session::flash('home', 'Your details have been updated.');
+          Session::flash('home', '<i>Your details have been updated.</i>');
           Redirect::to('index.php');
 
         } catch (Exception $e) {
@@ -55,11 +55,11 @@ if(Input::exists()) {
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 
   <style type="text/css">
-    
+
     html, body{
       height: 100%;
       background-color: #FFF3E0;
-      color: #222;    
+      color: #222;
       font-family: 'Roboto', sans-serif;
     }
 
