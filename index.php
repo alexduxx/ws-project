@@ -1,113 +1,48 @@
 <?php
-
+// Core Initialization
 require_once 'core/init.php';
 
+// Header
+include 'includes/header.php';
+
+echo "<div class='maincontainer'>";
+
+if (Session::exists('home')) {
+    echo '<p>' . Session::flash('home') .  '</p>';
+}
+
+//print Session::get(Config::get('session/session_name'));
+
+$user = new User();
+//echo $user->data()->username;
+if ($user->isLoggedIn()) {
 
 
-?>
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
-    <link href="style/style.css" rel="stylesheet">
-
-  </head>
+    Redirect::to('dashboard.php');
 
 
-  <body>
-
-
-<?php
-
-          if (Session::exists('home')) {
-              echo '<p>' . Session::flash('home');
-              '</p>';
-          };
-
-
-
-          $user = new User(); // current
-          if ($user->isLoggedIn()) {
-?>
-
-
-
-
-
-
-
-  <div class="options">
-    <div class="field-img">
-      <img class="banana" src="B-StorageLogo.png">
-      <h1>Hello<a> <?php echo escape($user->data()->username); ?> </a>, you are now loggedin to your account.</h1>
-    </div>
-
-    <ul id="options">
-      <li>
-        <a class="list" href="logout.php"> Log out </a>
-      </li>
-
-      <li>
-        <a class="list" href="update.php"> Update details </a>
-      </li>
-
-      <li>
-        <a class="list" href="changepassword.php"> Change password
-      </li>
-    </ul>
-  </div>
-
-
-
-
-
-
-</body>
-</html>
-
-  <?php
+//    echo "<p class='label label-success'>Success! You are logged in!</p><br><br>";
+//    ?>
+<!--    <p>-->
+<!--        Hello <a href="profile.php?user=--><?php //echo escape($user->data()->username); ?><!--">--><?php //echo escape($user->data()->name); ?><!--</a>-->
+<!--    </p>-->
+<!---->
+<!--    <ul>-->
+<!--        <li><a href="update.php">Update</a></li>-->
+<!--        <li><a href="changepassword.php">Change Password</a></li>-->
+<!--        <li><a href="logout.php">Logout</a></li>-->
+<!---->
+<!--    </ul>-->
+    <?php
+    // User Permission
+//            if ($user->hasPermission('admin')) {
+//                echo "<p>You are an Administrator!</p>";
+//            }
 
 } else {
-        echo '<div class="options">
-            <img class="banana" src="B-StorageLogo.png">
-            <p>You need to <a href="login.php"> log in </a>or<a href="register.php"> register</a>.</p>
-            </div>
+    echo "<p>You need to <a href='login.php'>log in</a> or <a href='register.php'>register</a></p>";
+}
 
-      <style>
-        html, body{
-          height: 100%;
-          background-color: #FFF3E0;
-          color: #222;
-          font-family: "Roboto", sans-serif;
-        }
-        body{
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-        .options{
-          display: flex;
-          width: 350px;
-          padding: 50px;
-          border: 1px solid #999999;
-          background-color: white;
-        }
-        a{
-          text-decoration: none;
-          color: #FFB74D;
-        }
-        p{
-          padding-top: 10%;
-          padding-left: 5%;
-        }
-        .banana{
-          width: 50px;
-          height: 100px;
-          padding-bottom: 2%;
-        }
-      </style>';
-    }
+echo "</div> <!-- //maincontainer -->";
 
-  ?>
+include 'includes/footer.php';

@@ -20,11 +20,12 @@ if (Input::exists()) {
         ),
         'password_new' => array(
           'required' => true,
-          '8' => 8
+          'min' => 8,
+          'special-pass-requirements' => true
         ),
         'password_new_again' => array(
           'required' => true,
-          '8' => 8,
+          'min' => 8,
           'matches' => 'password_new'
         )
 
@@ -36,13 +37,13 @@ if (Input::exists()) {
         if (!password_verify(Input::get('password_current'), $user->data()->password))  {
           echo 'Your current password is wrong';
         }else{
-          
+
           $user->update(array(
             'password' => Hash::make(Input::get('password_new'))
           ));
 
           Session::flash('home', 'Your password has been changed');
-          Redirect::to('index.php');
+          Redirect::to('dashboard.php');
         }
 
       }else{
@@ -59,11 +60,11 @@ if (Input::exists()) {
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 
   <style type="text/css">
-    
+
     html, body{
       height: 100%;
       background-color: #FFF3E0;
-      color: #222;    
+      color: #222;
       font-family: 'Roboto', sans-serif;
     }
 

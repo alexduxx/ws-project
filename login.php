@@ -4,7 +4,7 @@ require_once 'core/init.php';
   if (Input::exists()) {
       if (Token::check(Input::get('token'))) {
           $validate = new Validate();
-          $validation =$validate->check($_POST,array(
+          $validation =$validate->check($_POST, array(
         'username' => array('required' => true),
         'password' => array('required' => true)
       ));
@@ -13,17 +13,23 @@ require_once 'core/init.php';
               // log user in
               $user = new User();
 
-              $remember = (Input::get('remember') === 'on') ? true : false;
+              if (!isset($_POST['remember'])) {
+                  $remember= false;
+              } else {
+                  $remember = (Input::get('remember') === 'on') ? true : false;
+              }
+
 
               $login = $user->login(Input::get('username'), Input::get('password'), $remember);
 
               if ($login) {
                   Redirect::to('index.php');
               } else {
-                  echo '<p>Sorry, logging in failed. </p>';
+                  echo '<p>Username or password incorect. </p>';
+
               }
           } else {
-              foreach ($validation->errorrs() as $error) {
+              foreach ($validation->errors() as $error) {
                   echo $error, '<br>';
               }
           }
@@ -35,11 +41,11 @@ require_once 'core/init.php';
  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 
   <style type="text/css">
-    
+
     html, body{
       height: 100%;
       background-color: #FFF3E0;
-      color: #222;    
+      color: #222;
       font-family: 'Roboto', sans-serif;
     }
 
@@ -114,7 +120,7 @@ require_once 'core/init.php';
 
 <form action="" method="post">
   <div class="field-img">
-    <img class="banana" src="B-StorageLogo.png">
+    <img class="banana" src="img/B-StorageLogo.png">
     <div class="welcome">
       <h1>WELCOME TO B-STORAGE!</h1>
       <p> Please login to your account or register <a href="register.php">here</a>.</p>
@@ -129,8 +135,10 @@ require_once 'core/init.php';
     <input type="password" name="password" id="password" autocomplete="off">
   </div>
   <div class="field">
-    <label for="remember">Remember me</label>
-      <input type="checkbox" name="remember" id="remember">
+    <label for="remember" >Remember me
+      <input type="checkbox" name="remember" id="remember" >
+    </label>
+      <p>Pulifricious007!</p>
   </div>
 
   <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">

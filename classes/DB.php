@@ -81,15 +81,17 @@ class DB
         return $this->action('SELECT *', $table, $where);
     }
 
+
+
     public function delete($table, $where)
     {
-        return $this->action('DELETE *', $table, $where);
+        return $this->action('DELETE ', $table, $where);
     }
 
     public function insert($table, $fields = array())
     {
         if (count($fields)) {
-            $keys = array_keys($fields);  // ceck this function up
+            $keys = array_keys($fields);  // check this function up
             $values = '';
             $x = 1;
 

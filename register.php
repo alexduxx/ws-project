@@ -15,11 +15,18 @@ if (Input::exists()) {
         'required' => true,
         'min' => 2,
         'max' => 20,
-        'unique' => 'users'
+        'unique' => 'users',
+        'lower-case' => true
+      ),
+      'email' => array(
+        'required' => true,
+        'unique' => 'users',
+        'email-validation' => true
       ),
       'password' => array(
         'required' => true,
-        'min' => 8
+        'min' => 8,
+        'special-pass-requirements'=> true
       ),
       'password_again' => array(
         'required' => true,
@@ -28,12 +35,15 @@ if (Input::exists()) {
       'firstname' => array(
         'required' => true,
         'min' => 2,
-        'max' => 50
+        'max' => 50,
+        'upper-lower-case' => true
+
       ),
       'lastname' => array(
         'required' => true,
         'min' => 2,
-        'max' => 50
+        'max' => 50,
+        'upper-lower-case' => true
       )
     ));
 
@@ -42,33 +52,16 @@ if (Input::exists()) {
             // echo "passed";
             // Session::flash('success', 'You registered successfully!');
             // header('Location: index.php');
-
-
             $user = new User();
 
-            // $salt = Hash::salt(32);
-            // die();
+            $user->register();
+//            mail('alexduxx@gmail.com','test','test');
 
 
-            try {
-                $user->create(array(
-                        'username'  => Input::get('username'),
-                        'password'  => Hash::make(Input::get('password')),
-                        'firstname' => Input::get('firstname'),
-                        'lastname'  => Input::get('lastname'),
-                        'joined'    => date('Y-m-d H:i:s'),
-                        'rights'    => 1
-                      ));
 
-                Session::flash('home', 'You have been registered and can now log in!');
-                // Redirect::to(404);
-                Redirect::to('index.php');
-            } catch (Exception $e) {
-                die($e->getMessage());
-            }
         } else {
 
-      //output errors
+            //output errors
             // print_r($validation->errors() );
             foreach ($validation->errors() as $error) {
                 echo $error, '<br>';
@@ -84,11 +77,11 @@ if (Input::exists()) {
  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 
   <style type="text/css">
-    
+
     html, body{
       height: 100%;
       background-color: #FFF3E0;
-      color: #222;    
+      color: #222;
       font-family: 'Roboto', sans-serif;
     }
 
@@ -165,17 +158,24 @@ if (Input::exists()) {
 
 <form  action="" method="post">
   <div class="field-img">
-      <img class="banana" src="B-StorageLogo.png">
+      <img class="banana" src="img/B-StorageLogo.png">
         <div class="welcome">
           <h1>WELCOME TO B-STORAGE!</h1><br>
           <p> Please register or login <a href="login.php">here</a>.</p>
-        </div>  
+        </div>
   </div>
 
   <div class="field">
     <label for="username">Username</label>
-    <input type="text" name="username" value="<?php echo escape(Input::get('username')); ?>" autocomplete="off" id="username">
+    <input type="text" name="username" id="username" value="<?php if(isset($_POST['username'])) { echo escape(Input::get('username')); }?>" autocomplete="off" >
   </div>
+
+  <div class="field">
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email" value="<?php if(isset($_POST['Account'])) { echo escape(Input::get('Account')); }?>" autocomplete="off" >
+  </div>
+
+
 
   <div class="field">
     <label for="password">Choose a password</label>
@@ -190,13 +190,12 @@ if (Input::exists()) {
   </div>
   <div class="field">
     <label for="firstname">First name</label>
-    <input type="text" name="firstname" value="<?php echo escape(Input::get('firstname')); ?>" id="firstname">
+    <input type="text" name="firstname" id="firstname" value="<?php if(isset($_POST['firstname'])) { echo escape(Input::get('firstname')); }?>" >
 
-  </div>
   </div>
   <div class="field">
     <label for="lastname">Last name</label>
-    <input type="text" name="lastname" value="<?php echo escape(Input::get('lastname')); ?>" id="lastname">
+    <input type="text" name="lastname" value="<?php if(isset($_POST['username'])) { echo escape(Input::get('lastname')); }?>" id="lastname">
 
   </div>
 

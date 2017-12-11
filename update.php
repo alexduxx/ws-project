@@ -16,12 +16,14 @@ if(Input::exists()) {
         'firstname' => array(
                 'required' => true,
                 'min' => 3,
-                'max' => 30
+                'max' => 30,
+                'upper-lower-case' => true
         ),
         'lastname' => array(
                 'required' => true,
                 'min' => 3,
-                'max' => 30
+                'max' => 30,
+                'upper-lower-case' => true
         )
       ));
 
@@ -42,7 +44,7 @@ if(Input::exists()) {
 
 
       } else {
-        foreach ($validation->errorrs() as $error) {
+        foreach ($validation->errors() as $error) {
           echo $error, '<br>';
         }
       }
