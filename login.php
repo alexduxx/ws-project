@@ -133,6 +133,11 @@ require_once 'core/init.php';
       <input type="checkbox" name="remember" id="remember">
   </div>
 
+  <form action="validate.php" method="post">
+  Enter Image Text
+  <input name="captcha" type="text">
+  <img src="captcha.php" /><br>
+
   <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
   <input class="button" type="submit" value="Log in">
 </form>

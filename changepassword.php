@@ -137,7 +137,6 @@ if (Input::exists()) {
 
 
 
-
  <form class="" action="" method="post">
    <div class="field">
      <label for="password_current">Current password</label>
