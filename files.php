@@ -12,10 +12,7 @@ $user = new User();
 if ($user->isLoggedIn()) {
 $files = new File();
 ?>
-<p>
-    Hello <a
-            href="profile.php?user=<?php echo escape($user->data()->username); ?>"><?php echo escape($user->data()->firstname); ?></a>
-</p>
+
 
 
 <!-- delete file confirm modal -->

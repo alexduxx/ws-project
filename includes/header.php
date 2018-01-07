@@ -24,7 +24,7 @@
 </head>
 <body>
 
-<div class="container">
+<div class="container ">
     <div class="row">
 
 
@@ -40,13 +40,7 @@
                     </button>
                     <a class="navbar-brand" href="index.php">B-storage</a>
                 </div>
-                <div id="navbar" class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="dashboard.php">Dashboard</a></li>
-                        <li><a href="files.php">Files</a></li>
-                        <li><a href="upload.php">Upload</a></li>
 
-                    </ul>
 
  <?php
                     $user = new User();
@@ -54,6 +48,13 @@
 
 
  ?>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="dashboard.php">Dashboard</a></li>
+                        <li><a href="files.php">Files</a></li>
+                        <li><a href="upload.php">Upload</a></li>
+
+                    </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"
                                                     role="button" aria-haspopup="true" aria-expanded="false">Account

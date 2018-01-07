@@ -210,12 +210,13 @@ class User
             $message = "
                         Hello $username,
                         <br /><br />
-                        Welcome to Coding Cage!<br/>
-                        To complete your registration  please , just click following link<br/>
+                        Important!<br/>
+                        Your account has been deactivated <br/>
+                        Too many failed login attempts.<br/>
                         <br /><br />
-                        <a href='http://localhost/2ndSemV2/ws-project/confirm.php?id=$id&code=$emailCode'> Click HERE to Activate your account :)</a>
+                        <a href='http://localhost/2ndSemV2/ws-project/confirm.php?id=$id&code=$emailCode'> Click HERE to Activate your account. And change your password.</a>
                         <br /><br />
-                        Thanks,
+                        Thanks.
                      ";
 
             $this->send_mail($userEmail, $message, 'B-storage account activation');
@@ -230,8 +231,35 @@ class User
 
         }
 
-//        if ($userAttempts < 3) {
+//        if ($userAttempts == 3) {
+//             $emailCode = md5(uniqid(rand()));
+//        $userEmail = $this->data()->email;
+//        $id = hexdec(substr(sha1($userEmail), 0, 5));
+//        $username = $this->data()->username;
+//        $userId = $this->data()->id;
 //
+//        $this->_db->update('users', $userId, array('activation_code' => $emailCode));
+//
+//        $message = "
+//                        Hello $username,
+//                        <br /><br />
+//                        Important!<br/>
+//                        Your account has been deactivated <br/>
+//                        Too many failed login attempts.<br/>
+//                        <br /><br />
+//                        <a href='http://localhost/2ndSemV2/ws-project/confirm.php?id=$id&code=$emailCode'> Click HERE to Activate your account. And change your password.</a>
+//                        <br /><br />
+//                        Thanks.
+//                     ";
+//
+//        $this->send_mail($userEmail, $message, 'B-storage account activation');
+//
+//
+//        Session::flash('home', 'TOO MANY ATTEMPTS! A PASSWORD RESET EMAIL HAS BEEN SENT!');
+//        // Redirect::to(404);
+//        Redirect::to('index.php');
+//
+//        return true;
 //        }
 
     }

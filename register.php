@@ -1,4 +1,4 @@
-<<?php
+<?php
 // Core Initialization
 require_once 'core/init.php';
 
@@ -7,7 +7,7 @@ include 'includes/header.php';
 
 echo "<div class='maincontainer'>";
 
-$registerErrorMsg= '';
+
 
 if (Input::exists()) {
     // echo Input::get('username');
