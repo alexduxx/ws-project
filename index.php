@@ -10,7 +10,7 @@ echo "<div class='maincontainer'>";
 if (Session::exists('home')) {
     echo '<p>' . Session::flash('home') .  '</p>';
 }
-echo '<p>' . Session::flash('home') .  'fdsgsdfgsdfgfdsgdfsgsfd</p>';
+
 //print Session::get(Config::get('session/session_name'));
 
 $user = new User();
@@ -65,7 +65,7 @@ if ($user->isLoggedIn()) {
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 text-center">
-                        <h2>PORTAFOLIO</h2>
+                        <h2>Storage</h2>
                         <hr class="star-primary">
                     </div>
                 </div>

@@ -214,7 +214,7 @@ class User
                         Your account has been deactivated <br/>
                         Too many failed login attempts.<br/>
                         <br /><br />
-                        <a href='http://localhost/2ndSemV2/ws-project/confirm.php?id=$id&code=$emailCode'> Click HERE to Activate your account. And change your password.</a>
+                        <a href='http://localhost/2ndSemV2/ws-project/confirm.php?id=$id&code=$emailCode'> Click HERE to Activate your account and change your password.</a>
                         <br /><br />
                         Thanks.
                      ";
@@ -231,36 +231,36 @@ class User
 
         }
 
-//        if ($userAttempts == 3) {
-//             $emailCode = md5(uniqid(rand()));
-//        $userEmail = $this->data()->email;
-//        $id = hexdec(substr(sha1($userEmail), 0, 5));
-//        $username = $this->data()->username;
-//        $userId = $this->data()->id;
-//
-//        $this->_db->update('users', $userId, array('activation_code' => $emailCode));
-//
-//        $message = "
-//                        Hello $username,
-//                        <br /><br />
-//                        Important!<br/>
-//                        Your account has been deactivated <br/>
-//                        Too many failed login attempts.<br/>
-//                        <br /><br />
-//                        <a href='http://localhost/2ndSemV2/ws-project/confirm.php?id=$id&code=$emailCode'> Click HERE to Activate your account. And change your password.</a>
-//                        <br /><br />
-//                        Thanks.
-//                     ";
-//
-//        $this->send_mail($userEmail, $message, 'B-storage account activation');
-//
-//
-//        Session::flash('home', 'TOO MANY ATTEMPTS! A PASSWORD RESET EMAIL HAS BEEN SENT!');
-//        // Redirect::to(404);
-//        Redirect::to('index.php');
-//
-//        return true;
-//        }
+        if ($userAttempts == 3) {
+             $emailCode = md5(uniqid(rand()));
+        $userEmail = $this->data()->email;
+        $id = hexdec(substr(sha1($userEmail), 0, 5));
+        $username = $this->data()->username;
+        $userId = $this->data()->id;
+
+        $this->_db->update('users', $userId, array('activation_code' => $emailCode));
+
+        $message = "
+                        Hello $username,
+                        <br /><br />
+                        Important!<br/>
+                        Unusual activity has been happening with your account.  <br/>
+                        3 failed login attempts happened. In case this was not you, please login and change your password.<br/>
+                        <br /><br />
+                        <a href='https://165.227.147.183/login.php'> Click HERE to login and change your password.</a>
+                        <br /><br />
+                        Thanks.
+                     ";
+
+        $this->send_mail($userEmail, $message, 'B-storage account activation');
+
+
+        Session::flash('home', 'You have reached 3 failed attempts! You will have to wait 5 minutes to be able to log in');
+        // Redirect::to(404);
+        Redirect::to('index.php');
+
+        return true;
+        }
 
     }
 

@@ -68,7 +68,7 @@ header {
 
 .content-wrapper{
     background-color: white;
-    top: 87%;
+    top: 75%;
     min-height: 12%;
     position:absolute;
     z-index: 2;
@@ -98,7 +98,7 @@ header .intro-text .skills {
 }
 
 section {
-    padding: 100px 0;
+    padding: 50px 0;
     width: 100%;
 }
 
