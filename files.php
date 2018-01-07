@@ -122,4 +122,6 @@ Redirect::to('index.php');
 
 echo "</div> <!-- //maincontainer -->";
 
+
 include 'includes/footer.php';
+?>

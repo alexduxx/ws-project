@@ -1,8 +1,13 @@
-<?php
-
+<<?php
+// Core Initialization
 require_once 'core/init.php';
 
-// var_dump(Token::check(Input::get('token')));
+// Header
+include 'includes/header.php';
+
+echo "<div class='maincontainer'>";
+
+$registerErrorMsg= '';
 
 if (Input::exists()) {
     // echo Input::get('username');
@@ -64,7 +69,12 @@ if (Input::exists()) {
             //output errors
             // print_r($validation->errors() );
             foreach ($validation->errors() as $error) {
+
+
+                echo "<span class='reg-err-msg'>";
                 echo $error, '<br>';
+                echo "</span>";
+
             }
         }
     }
@@ -74,131 +84,55 @@ if (Input::exists()) {
 
 
 
- <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
-
-  <style type="text/css">
-
-    html, body{
-      height: 100%;
-      background-color: #FFF3E0;
-      color: #222;
-      font-family: 'Roboto', sans-serif;
-    }
-
-    *{
-      margin: 0px;
-      padding: 0px;
-      font-size: 16px;
-      box-sizing: border-box;
-    }
-
-    body{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    form{
-      display: flex;
-      flex-direction: column;
-      width: 600px;
-      padding: 20px 30px 20px 30px;
-      border: 1px solid #999999;
-      background-color: white;
-
-    }
-
-    input{
-      width: 100%;
-      height: 50px;
-      padding: 10px;
-      margin-top: 10px;
-      margin-bottom: 10px;
-    }
-
-    .button{
-      width: 100%;
-      height: 50px;
-      color: white;
-      border: none;
-      background-color: #FFB74D;
-      cursor: pointer;
-    }
-
-    .field-img{
-      display: flex;
-      flex-wrap: wrap;
-    }
-
-    .banana{
-      width: 50px;
-      height: 100px;
-      padding-bottom: 2%;
-    }
-
-    .welcome{
-      margin-top: 5%;
-      margin-left: 5%;
-    }
-
-    h1{
-      font-weight: 700;
-    }
-
-    a{
-      text-decoration: none;
-      color: #FFB74D;
-    }
+<section id="login">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="form-wrap">
+                    <h1>Log in with your email account</h1>
+                    <form role="form" action="" method="post" id="login-form" autocomplete="off">
+                        <div class="form-group">
+                            <label for="username" class="sr-only">Email</label>
+                            <input type="text" name="username" id="username" class="form-control" placeholder="username" value="<?php if(isset($_POST['username'])) { echo escape(Input::get('username')); }?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="sr-only">Email</label>
+                            <input type="email" name="email" id="email" class="form-control" placeholder="somebody@example.com" value="<?php if(isset($_POST['Account'])) { echo escape(Input::get('Account')); }?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="sr-only">Password</label>
+                            <input type="password" name="password" id="password" class="form-control" placeholder="Password" onkeyup="CheckPasswordStrength(this.value)">
+                            <span id="password_strength">Strength...</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="password_again" class="sr-only">Password</label>
+                            <input type="password" name="password_again" id="password_again" class="form-control" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <label for="firstname" class="sr-only">Password</label>
+                            <input type="text" name="firstname" id="firstname" class="form-control" placeholder="firstname" value="<?php if(isset($_POST['firstname'])) { echo escape(Input::get('firstname')); }?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="password_again" class="sr-only">Password</label>
+                            <input type="text" name="lastname" id="lastname" class="form-control" placeholder="lastname" value="<?php if(isset($_POST['username'])) { echo escape(Input::get('lastname')); }?>">
+                        </div>
+                        <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
+                        <input type="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Register">
+                    </form>
+                    <div class="alert alert-warning show-error" role="alert">
 
 
 
-  </style>
+                    </div>
 
+                </div>
+            </div> <!-- /.col-xs-12 -->
+        </div> <!-- /.row -->
+    </div> <!-- /.container -->
+</section>
 
+<?php
 
-<form  action="" method="post">
-  <div class="field-img">
-      <img class="banana" src="img/B-StorageLogo.png">
-        <div class="welcome">
-          <h1>WELCOME TO B-STORAGE!</h1><br>
-          <p> Please register or login <a href="login.php">here</a>.</p>
-        </div>
-  </div>
+echo "</div> <!-- //maincontainer -->";
 
-  <div class="field">
-    <label for="username">Username</label>
-    <input type="text" name="username" id="username" value="<?php if(isset($_POST['username'])) { echo escape(Input::get('username')); }?>" autocomplete="off" >
-  </div>
-
-  <div class="field">
-    <label for="email">Email</label>
-    <input type="email" name="email" id="email" value="<?php if(isset($_POST['Account'])) { echo escape(Input::get('Account')); }?>" autocomplete="off" >
-  </div>
-
-
-
-  <div class="field">
-    <label for="password">Choose a password</label>
-    <input type="password" name="password" value="" id="password">
-
-  </div>
-
-  <div class="field">
-    <label for="password_again">Enter your password again</label>
-    <input type="password" name="password_again" value="" id="password_again">
-
-  </div>
-  <div class="field">
-    <label for="firstname">First name</label>
-    <input type="text" name="firstname" id="firstname" value="<?php if(isset($_POST['firstname'])) { echo escape(Input::get('firstname')); }?>" >
-
-  </div>
-  <div class="field">
-    <label for="lastname">Last name</label>
-    <input type="text" name="lastname" value="<?php if(isset($_POST['username'])) { echo escape(Input::get('lastname')); }?>" id="lastname">
-
-  </div>
-
-  <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
-  <input class="button" type="submit" value="register">
-</form>
+include 'includes/footer.php';

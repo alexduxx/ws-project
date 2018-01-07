@@ -1,0 +1,240 @@
+-- phpMyAdmin SQL Dump
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost
+-- Generation Time: Jan 07, 2018 at 12:04 AM
+-- Server version: 10.1.28-MariaDB
+-- PHP Version: 7.1.11
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `ws-project`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comments`
+--
+
+CREATE TABLE `comments` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `body` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `user_id` int(11) UNSIGNED NOT NULL,
+  `file_id` int(11) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`id`, `body`, `created_at`, `user_id`, `file_id`) VALUES
+(21, 'fdgdsgdsf', '2017-12-08 22:56:45', 802974, 21),
+(22, 'sdfgsd', '2017-12-08 23:28:40', 802974, 22),
+(23, 'adsfsda', '2017-12-08 23:30:15', 802974, 22),
+(24, 'dasfsda', '2017-12-08 23:32:11', 802974, 22),
+(25, 'sdfasdf', '2017-12-09 00:23:31', 802974, 22),
+(26, 'dfgdfsgsdfgsd', '2017-12-09 00:23:35', 802974, 22),
+(27, 'dfgd', '2017-12-09 00:23:46', 802974, 22),
+(29, 'test1111', '2017-12-09 01:39:26', 531542, 22),
+(30, 'test 222', '2017-12-09 01:39:36', 531542, 22),
+(32, 'fdgs', '2017-12-09 17:42:49', 531542, 15),
+(33, 'sdafsdfadssa', '2017-12-11 21:39:36', 802974, 22),
+(34, 'bbvxcv', '2018-01-06 05:14:55', 802974, 21),
+(35, 'vbcxvbc', '2018-01-06 05:14:58', 802974, 25),
+(36, 'bsdssdf', '2018-01-06 05:15:04', 802974, 25);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `files`
+--
+
+CREATE TABLE `files` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `user_id` int(11) UNSIGNED NOT NULL,
+  `path_to_file` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `file_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `protected` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `files`
+--
+
+INSERT INTO `files` (`id`, `user_id`, `path_to_file`, `file_name`, `created_at`, `protected`) VALUES
+(15, 531542, '1files/77776a20931a3c9e70fd662c8f823e1bd3d9acdd1512742616', 'IMG_2532.jpg', '2017-12-08 15:16:56', 1),
+(21, 802974, '1files/f98a82c6e46944199f3aa22078167a1eb8d8c75c1512748663', 'Screen Shot 2017-10-31 at 22.19.35.png', '2017-12-08 16:57:43', 1),
+(22, 802974, '1files/6b48d980fd39d6858b66ac2033f308eec81b83741512748691', '22091805_1632985350059085_5839415_n.png', '2017-12-08 16:58:11', 1),
+(25, 802974, '1files/198fc96662b0297a267e4abf90a265cbff1d3b871513024824', 'evaluation.pdf', '2017-12-11 21:40:24', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `login_attempts`
+--
+
+CREATE TABLE `login_attempts` (
+  `id` int(11) NOT NULL,
+  `email` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `last_attempt` datetime NOT NULL,
+  `attempts` int(1) NOT NULL,
+  `username` varchar(150) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `login_attempts`
+--
+
+INSERT INTO `login_attempts` (`id`, `email`, `user_id`, `last_attempt`, `attempts`, `username`) VALUES
+(44, 'hacker', 257499, '2017-12-11 21:38:11', 1, 'alexduxx');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rights`
+--
+
+CREATE TABLE `rights` (
+  `id` int(11) NOT NULL,
+  `name` varchar(20) COLLATE utf8_bin NOT NULL,
+  `permissions` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `username` varchar(20) COLLATE utf8_bin NOT NULL,
+  `email` varchar(255) COLLATE utf8_bin NOT NULL,
+  `password` varchar(255) COLLATE utf8_bin NOT NULL,
+  `firstname` varchar(50) COLLATE utf8_bin NOT NULL,
+  `lastname` varchar(50) COLLATE utf8_bin NOT NULL,
+  `joined` datetime NOT NULL,
+  `rights` int(11) NOT NULL,
+  `pass_reset_code` varchar(64) COLLATE utf8_bin DEFAULT NULL,
+  `email_confirmation` tinyint(1) NOT NULL,
+  `activation_code` varchar(64) COLLATE utf8_bin DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `firstname`, `lastname`, `joined`, `rights`, `pass_reset_code`, `email_confirmation`, `activation_code`) VALUES
+(531542, 'dux', 'alexduxx@icloud.com', '$2y$11$7nvJB4oikewP4t3TFLv9gunBMQaSyanVZXOExMHzN5eTAM5wQ77Jq', 'dux', 'dux', '2017-12-07 01:33:37', 1, NULL, 1, '66819a822ce6a78f5865165bfc3f2699'),
+(802974, 'alexduxx', 'alexduxx@gmail.com', '$2y$11$KhfHf6U7MMRSbjXfIKUrdehU9PzUC2GQYOHqrizFRsP5QzEFCFfha', 'Alexandru', 'Duce', '2017-12-07 01:30:03', 1, NULL, 1, '75ccc484e4a8e28e7dee556d3755d1d0');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users_session`
+--
+
+CREATE TABLE `users_session` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `hash` varchar(72) COLLATE utf8_bin NOT NULL,
+  `expires` int(12) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_comments_uid` (`user_id`),
+  ADD KEY `fk_comments_fid` (`file_id`);
+
+--
+-- Indexes for table `files`
+--
+ALTER TABLE `files`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_files_uid` (`user_id`);
+
+--
+-- Indexes for table `login_attempts`
+--
+ALTER TABLE `login_attempts`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `rights`
+--
+ALTER TABLE `rights`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users_session`
+--
+ALTER TABLE `users_session`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+
+--
+-- AUTO_INCREMENT for table `files`
+--
+ALTER TABLE `files`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT for table `login_attempts`
+--
+ALTER TABLE `login_attempts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+
+--
+-- AUTO_INCREMENT for table `rights`
+--
+ALTER TABLE `rights`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `users_session`
+--
+ALTER TABLE `users_session`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

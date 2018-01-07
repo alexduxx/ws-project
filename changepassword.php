@@ -38,11 +38,14 @@ if (Input::exists()) {
           echo 'Your current password is wrong';
         }else{
 
-          $user->update(array(
-            'password' => Hash::make(Input::get('password_new'))
-          ));
+            try {
+                $user->update(array(
+                    'password' => Hash::make(Input::get('password_new'))
+                ));
+            } catch (Exception $e) {
+            }
 
-          Session::flash('home', 'Your password has been changed');
+            Session::flash('home', 'Your password has been changed');
           Redirect::to('dashboard.php');
         }
 
