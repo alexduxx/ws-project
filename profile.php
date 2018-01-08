@@ -29,6 +29,7 @@ if ($user->isLoggedIn() && $user->data()->username === Input::get('user')) {
         ?>
 
         <h3><?php echo escape($data->firstname); ?></h3>
+        <h3><?php echo escape($data->lastname); ?></h3>
         <p>Username: <?php echo escape($data->username); ?></p>
 
 

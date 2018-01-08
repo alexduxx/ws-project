@@ -7,6 +7,8 @@ include 'includes/header.php';
 
 echo "<div class='maincontainer'>";
 
+
+
 if (Session::exists('home')) {
     echo '<p>' . Session::flash('home') .  '</p>';
 }

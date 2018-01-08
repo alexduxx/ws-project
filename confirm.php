@@ -18,7 +18,20 @@ if (Input::get('code') && Input::get('id')){
 
     $user->activateAccount($userId,$emailActivationCode);
 
-    Session::flash('home', 'Your account has been activated and you can now login, please change your password.');
+    if (Input::get('reason') == 'activate'){
+        Session::flash('home', 'Your account has been activated and you can now login.');
+
+    }
+    if (Input::get('reason') == '3'){
+        Session::flash('home', 'Login and then please change your password.');
+
+    }
+    if (Input::get('reason') == '5'){
+        Session::flash('home', 'Your account has been activated and you can now login, please change your password.');
+
+    }
+
+
     Redirect::to('index.php');
 }
 
